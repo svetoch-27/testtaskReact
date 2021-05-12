@@ -36,3 +36,35 @@
     transform: rotate(360deg);
   }
 }
+
+.classTodo{
+  border: 1px solid rgb(105, 238, 28);
+  display: flex;  
+  flex-direction: row;
+  align-items: center;
+  width: 400px;
+}
+
+.tasks{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;  
+  padding: 1px 1px;
+  border-radius: 4px;
+  margin-bottom: 1px;
+}
+
+.task__activ{
+  border: 1px solid blue;
+}
+
+.task__completed{
+  border: 1px solid red;
+}
+
+.indent{
+  border: 1px solid rgb(11, 11, 12);
+  height: 10px;
+  background: dimgray;
+}
