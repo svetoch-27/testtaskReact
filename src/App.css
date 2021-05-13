@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+
+  display: flex;  
+  flex-direction: column;
+  align-items: center;
 }
 
 .App-logo {
@@ -42,17 +46,32 @@
   display: flex;  
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   width: 400px;
+  height: 40px;border-radius: 10px;
+  max-width: 90%;
+  padding: 5px;
+  margin: 5px;
+}
+
+input{
+  border-radius: 30px;
 }
 
 .tasks{
   display: flex;
   flex-direction: column;
   align-items: center;
+  
   justify-content: space-between;  
   padding: 1px 1px;
   border-radius: 4px;
   margin-bottom: 1px;
+  font-size: 8pt;
+
+  width: 450px;
+  padding: 5px;
+  margin: 5px;
 }
 
 .task__activ{
@@ -65,6 +84,10 @@
 
 .indent{
   border: 1px solid rgb(11, 11, 12);
-  height: 10px;
+  height: 1px;
   background: dimgray;
+
+  width: 450px;
+  padding: 5px;
+  margin: 5px;
 }

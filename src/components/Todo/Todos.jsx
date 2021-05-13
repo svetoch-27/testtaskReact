@@ -1,5 +1,5 @@
 // import TodoList from "./TodoList";
-import styles from '../../css/Todo.module.css';
+import styles from '../../css/TodoCSS.css';
 // import {nanoid} from 'nanoid';
 // import Button from "./Button";
 // import { useState, useEffect, useContext, memo, useCallback } from 'react';
@@ -31,11 +31,17 @@ function Todos(props) {
   return (
     <div className='classTodo'>
            {/* onDoubleClick={() => onDoubleClick(id)} */}
-           <input type='checkbox' checked={props.activ}></input>
-           <div>{props.name}</div>
-           <button onClick={props.onChangeTask}>Редактировать</button>
-           <button onClick={props.onDeleteTask}>Удалить</button>
-           <button onClick={props.onRestoreTask}>Восстановить</button>
+           <div>
+              <input type='checkbox' checked={props.activ}></input>
+              <div>{props.name}</div>
+           </div>
+
+           <div>
+              {/* {props.showonChangeTask && <button onClick={props.onChangeTask}>Редактировать</button>} */}
+              {props.completed && <button onClick={props.onChangeTask}>Редактировать</button>} 
+              {props.completed && <button onClick={props.onDeleteTask}>Удалить</button>}
+              {!props.completed && <button onClick={props.onRestoreTask}>Восстановить</button>}
+           </div>
 
     </div>
    
@@ -48,6 +54,6 @@ function Todos(props) {
     //   </div>
     // </div>
   );
-}
+  }
 
 export default Todos;

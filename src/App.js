@@ -16,14 +16,18 @@ function App() {
   // }
 
   const defaultTodos = [
-    {id: 1, name:'Задача 1', completed: false, onChangeTask: 'onChangeTask', onDeleteTask: 'onDeleteTask', onRestoreTask:'onRestoreTask' },
+    {id: 1, name:'Задача 1', completed: true, onChangeTask: 'onChangeTask', onDeleteTask: 'onDeleteTask', onRestoreTask:'onRestoreTask' },
     // {      id: 2,      name:'Задача 2',      completed: false,    },
     // {      id: 3,      name:'Задача 3',      completed: false,    },
-    {id: 4, name:'Задача 4', completed: true, onChangeTask: 'onChangeTask', onDeleteTask: 'onDeleteTask', onRestoreTask:'onRestoreTask' },
+    {id: 4, name:'Задача 4', completed: false, onChangeTask: 'onChangeTask', onDeleteTask: 'onDeleteTask', onRestoreTask:'onRestoreTask' },
   ];
 
-  const tasksActiv = defaultTodos;
-  const tasksComplited = [];
+  const tasksActiv = defaultTodos.filter(task => task.completed);
+  const tasksComplited = defaultTodos.filter(task => !task.completed);
+
+  {console.log(defaultTodos)};
+  {console.log(tasksActiv)};
+  {console.log(tasksComplited)};
 
 
 
@@ -62,6 +66,7 @@ function App() {
       <h1>Тестовое задание</h1>
       <h2>Активные задачи</h2>
       {/* <Todos/> */}
+      <button>Добавить задачу</button>
 
       <div className='tasks task__activ'>
         {tasksActiv.map(item => (
@@ -72,6 +77,7 @@ function App() {
             // onDeleteTask={onDeleteTask}
             // onClick={onItemClick}
             // onDoubleClick={onItemDoubleClick}
+            completed = {item.completed}
             data={item}
           />)
         )}
