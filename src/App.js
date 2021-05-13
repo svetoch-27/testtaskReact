@@ -3,8 +3,15 @@ import './App.css';
 import React from 'react';
 import {useState, useEffect} from 'react';
 import Todos from './components/Todo/Todos';
+import axios from 'axios'
+// import styles from '../css/TodoCSS.css';
 
 function App() {
+
+  const apiURL = 'http://185.246.66.84:3000/sarhipenkova/tasks';
+  // const getData = async () => {
+  //     const response = await axios.get(apiURL)
+  //     setParTodos(response.data)
  
   // state = {
   //   tasks:
@@ -15,12 +22,29 @@ function App() {
   //   ]
   // }
 
-  const defaultTodos = [
-    {id: 1, name:'Задача 1', completed: true, onChangeTask: 'onChangeTask', onDeleteTask: 'onDeleteTask', onRestoreTask:'onRestoreTask' },
-    // {      id: 2,      name:'Задача 2',      completed: false,    },
-    // {      id: 3,      name:'Задача 3',      completed: false,    },
-    {id: 4, name:'Задача 4', completed: false, onChangeTask: 'onChangeTask', onDeleteTask: 'onDeleteTask', onRestoreTask:'onRestoreTask' },
-  ];
+  // let defaultTodos = [
+  //   {id: 1, title:'Задача 1', completed: true, onChangeTask: 'onChangeTask', onDeleteTask: 'onDeleteTask', onRestoreTask:'onRestoreTask' },
+  //   {id: 2, title:'Задача 2', completed: true, },
+  //   {id: 3, title:'Задача 3', completed: false, },
+  //   {id: 4, title:'Задача 4', completed: false, onChangeTask: 'onChangeTask', onDeleteTask: 'onDeleteTask', onRestoreTask:'onRestoreTask' },
+  // ];
+
+  // const [state, setState] = useState(defaultTodos);
+  // const [item, setItem] = useState('');
+  const [list, setList] = useState([]);
+  const [error, setError] = useState('');  
+
+  useEffect(() => {
+    axios.get(apiURL)
+    .then(res => setList(res.data))
+    .catch(err => setError(err))
+  },[]
+  )
+
+  {console.log('error: ')};
+  {console.log(error)};
+
+  let defaultTodos = list;
 
   const tasksActiv = defaultTodos.filter(task => task.completed);
   const tasksComplited = defaultTodos.filter(task => !task.completed);
@@ -29,18 +53,55 @@ function App() {
   {console.log(tasksActiv)};
   {console.log(tasksComplited)};
 
-
-
-
-  const [state, setState] = useState(defaultTodos);
-  const [item, setItem] = useState('');
-  const [list, setList] = useState('');
-
   const onChangeTask = () => {}
-  const onDeleteTask = () => {}
+
+  const onDeleteTask = (id) => {
+    if(!id) return;
+    setList(list.filter(item => item.id !== id))
+    }
+  
   const onRestoreTask = () => {}
 
+  const addTodo = () => {
+    setList( prev =>
+      [
+        ...prev,
+        {
+          // id: nanoid(),
+          title: 'Новая задача',
+          completed: true,
+        }
+      ]
+    );
+  }
+  // }, [setList])
 
+  // const onDeleteTask = (id) => {
+  //   if(!id)
+  //     return;
+  //     setList(prev =>
+  //     prev.filter(item => item.id !== id)
+  //   );
+  //     }
+  // // }, [setList])
+
+  // const toggleTodo = (id) => {
+  //   if(!id)
+  //     return;
+  //     setList(prev =>
+  //     prev.map(item => {
+  //       if(item.id !== id)
+  //         return item;
+
+  //       return {
+  //         ...item,
+  //         completed: !item.completed
+  //       }
+  //     })
+  //   )
+  // }
+  // }, [setList])
+  
   // const handleSubmit = (e) => {
   //   const newItem = {
   //     id: 1, //uuidv4(),
@@ -62,23 +123,24 @@ function App() {
   // tasksComplited = defaultTodos.map(item => (item.completed='true' ? item : null) );
 
   return (
+    
     <div className="App">
       <h1>Тестовое задание</h1>
       <h2>Активные задачи</h2>
       {/* <Todos/> */}
-      <button>Добавить задачу</button>
+      <button onClick={addTodo}>Добавить задачу</button>
 
       <div className='tasks task__activ'>
         {tasksActiv.map(item => (
           <Todos
             key={item.id}
-            name={item.name}
+            title={item.title}
             // onChangeTask={onChangeTask}
-            // onDeleteTask={onDeleteTask}
+            // onDeleteTask={item.onChangeTask}
             // onClick={onItemClick}
             // onDoubleClick={onItemDoubleClick}
             completed = {item.completed}
-            data={item}
+            
           />)
         )}
       </div>
@@ -90,11 +152,11 @@ function App() {
         {tasksComplited.map(item => (
           <Todos
             key={item.id}
-            name={item.name}
+            title={item.title}
             // onRestoreTask={onRestoreTask}
             // onClick={onItemClick}
             // onDoubleClick={onItemDoubleClick}
-            data={item}
+            completed = {item.completed}
           />)
         )}
       </div>
@@ -102,6 +164,7 @@ function App() {
       
     </div>
   );
-}
+        }
+
 
 export default App;

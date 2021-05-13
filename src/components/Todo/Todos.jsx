@@ -28,12 +28,15 @@ import styles from '../../css/TodoCSS.css';
 //     </div>
 
 function Todos(props) {
+  // const Todos = memo(() => {
   return (
     <div className='classTodo'>
            {/* onDoubleClick={() => onDoubleClick(id)} */}
            <div>
-              <input type='checkbox' checked={props.activ}></input>
-              <div>{props.name}</div>
+              {/* <input styles={styles.input} className='classTodo__checkbox' type='checkbox' checked={props.activ}></input> */}
+              <input className='classTodo__checkbox' type='checkbox' checked={props.activ}></input>
+              {/* <div>{props.name}</div> */}
+              <input type="text" value={props.title} readOnly="true"/>
            </div>
 
            <div>
@@ -42,7 +45,6 @@ function Todos(props) {
               {props.completed && <button onClick={props.onDeleteTask}>Удалить</button>}
               {!props.completed && <button onClick={props.onRestoreTask}>Восстановить</button>}
            </div>
-
     </div>
    
     // <div className={styles.todos}>
