@@ -41,8 +41,8 @@
   }
 }
 
-.classTodo{
-  border: 1px solid rgb(105, 238, 28);
+/* .classTodo{
+  border: 10px solid rgb(105, 238, 28);
   display: flex;  
   flex-direction: row;
   align-items: center;
@@ -52,7 +52,7 @@
   max-width: 90%;
   padding: 5px;
   margin: 5px;
-}
+} */
 
 .classTodo__checkbox{
   border-radius: 30px;
@@ -76,11 +76,11 @@
 }
 
 .task__activ{
-  border: 1px solid blue;
+  border: 5px solid blue;
 }
 
 .task__completed{
-  border: 1px solid red;
+  border: 5px solid red;
   
 }
 

@@ -1,61 +1,59 @@
 // import TodoList from "./TodoList";
 import styles from '../../css/TodoCSS.css';
 // import {nanoid} from 'nanoid';
-// import Button from "./Button";
-// import { useState, useEffect, useContext, memo, useCallback } from 'react';
-// import AppContext from "../../appContext";
-
-// const defaultTodos = [
-//   {    id: nanoid(),    title:'Задача 1',    completed: false,  },
-//   {    id: nanoid(),    title:'Задача 2',    completed: false,  },
-//   {    id: nanoid(),    title:'Задача 3',    completed: false,  },
-//   {    id: nanoid(),    title:'Задача 4',    completed: true,  },
-// ];
+import { useState, useEffect, useContext, memo, useCallback } from 'react';
 
 
-// const addTodo = () => {
-//   alert('Мы пока не умеем добавлять');
-// }
+  
+    function Todos({task, sequence, completed, editTodos , handleEdit, onDeleteTask, onChangeTask, onRestoreTask, onChangeCheck, onChangeTaskName}) {
+    
+        const [editValue, setEditValue] = useState(task.title);
+        const [onEdit, setOnEdit] = useState(false);
+        
+        const handleSave =() =>{
+          setOnEdit(false)
+          if(editValue) {
+            handleEdit(editValue, task.id)
+          } else {
+            setEditValue(task.title)
+          }
+        }
 
-// function Todos(props) {
-//   return (
-//     <div className='classTodo'>
-//            {/* onDoubleClick={() => onDoubleClick(id)} */}
-//            <input type='checkbox' checked={true}></input>
-//            <div>{props.name}</div>
-//            <button>Редактировать</button>
-//            <button>Удалить</button>
-//     </div>
+    const handleOnEdit = () => {
+      setOnEdit(true)
+    }
 
-function Todos(props) {
-  // const Todos = memo(() => {
-  return (
-    <div className='classTodo'>
-           {/* onDoubleClick={() => onDoubleClick(id)} */}
+    if (onEdit){
+      return (
+        <div className={styles.classTodo}>
            <div>
-              {/* <input styles={styles.input} className='classTodo__checkbox' type='checkbox' checked={props.activ}></input> */}
-              <input className='classTodo__checkbox' type='checkbox' checked={props.activ}></input>
-              {/* <div>{props.name}</div> */}
-              <input type="text" value={props.title} readOnly="true"/>
+              <input className={styles.classTodo__checkbox} type='checkbox' disabled={!task.completed} defaultChecked={!task.completed} onChange={() => onChangeCheck(task)}></input>
+              <input type="text" placeholder={editValue} value = {editValue} onChange={e => setEditValue(e.target.value.toLowerCase())}/> 
+              {/* <input type ="text" value = {editValue} onChange ={e => setEditValue(e.target.value)}/>                  */}
            </div>
-
-           <div>
-              {/* {props.showonChangeTask && <button onClick={props.onChangeTask}>Редактировать</button>} */}
-              {props.completed && <button onClick={props.onChangeTask}>Редактировать</button>} 
-              {props.completed && <button onClick={props.onDeleteTask}>Удалить</button>}
-              {!props.completed && <button onClick={props.onRestoreTask}>Восстановить</button>}
+           <div>        
+              {task.completed && <button onClick={() => {handleSave(task.id)}} >Сохранить</button>}      
+              {task.completed && <button onClick={() => onDeleteTask(task.id)}>Удалить</button>}               
+              {!task.completed && <button onClick={() => onRestoreTask(task)}>Восстановить</button>}
            </div>
-    </div>
-   
-    // <div className={styles.todos}>
-    //   <div>
-    //     <div className={styles.btnContainer}>
-    //       <Button text="Добавить" onClick={addTodo}/>
-    //     </div>
-    //     <TodoList items={defaultTodos}/>
-    //   </div>
-    // </div>
-  );
+          </div>
+           )
+      }else{
+      return (        
+        <div className={styles.classTodo}>
+          <div>
+            <input className={styles.classTodo__checkbox} type='checkbox' disabled={!task.completed} defaultChecked={!task.completed} onChange={() => onChangeCheck(task)}></input>
+            <input type="text" placeholder={task.title} id={task.id} value = {editValue} onChange={onChangeTaskName}/>                  
+          </div>
+          <div>              
+            {/* {task.completed && <button onClick={() => editTodo(editValue, task.id)} >Редактировать</button>}                */}
+            {task.completed && <button onClick={handleOnEdit} >Редактировать</button>}                    
+            {task.completed && <button onClick={() => onDeleteTask(task.id)}>Удалить</button>}               
+            {!task.completed && <button onClick={() => onRestoreTask(task)}>Восстановить</button>}
+          </div>
+        </div>
+        )
+      }
   }
 
 export default Todos;
