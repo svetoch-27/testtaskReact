@@ -2,18 +2,17 @@
 import styles from '../../css/TodoCSS.css';
 // import {nanoid} from 'nanoid';
 import { useState, useEffect, useContext, memo, useCallback } from 'react';
-
-
   
     function Todos({task, sequence, completed, editTodos , handleEdit, onDeleteTask, onChangeTask, onRestoreTask, onChangeCheck, onChangeTaskName}) {
     
         const [editValue, setEditValue] = useState(task.title);
         const [onEdit, setOnEdit] = useState(false);
         
-        const handleSave =() =>{
+        const handleSave =(task) =>{
           setOnEdit(false)
+          debugger
           if(editValue) {
-            handleEdit(editValue, task.id)
+            handleEdit(editValue, task)
           } else {
             setEditValue(task.title)
           }
@@ -28,11 +27,11 @@ import { useState, useEffect, useContext, memo, useCallback } from 'react';
         <div className={styles.classTodo}>
            <div>
               <input className={styles.classTodo__checkbox} type='checkbox' disabled={!task.completed} defaultChecked={!task.completed} onChange={() => onChangeCheck(task)}></input>
-              <input type="text" placeholder={editValue} value = {editValue} onChange={e => setEditValue(e.target.value.toLowerCase())}/> 
+              <input type="text" placeholder={editValue} value = {editValue} onChange={e => setEditValue(e.target.value)}/> 
               {/* <input type ="text" value = {editValue} onChange ={e => setEditValue(e.target.value)}/>                  */}
            </div>
            <div>        
-              {task.completed && <button onClick={() => {handleSave(task.id)}} >Сохранить</button>}      
+              {task.completed && <button onClick={() => {handleSave(task)}} >Сохранить</button>}      
               {task.completed && <button onClick={() => onDeleteTask(task.id)}>Удалить</button>}               
               {!task.completed && <button onClick={() => onRestoreTask(task)}>Восстановить</button>}
            </div>

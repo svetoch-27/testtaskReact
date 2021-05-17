@@ -65,14 +65,29 @@ function App() {
       }
 
 
-  const handleEdit = (editValue, id) => {
-    const newTask = [...list]
-    newTask.forEach((task, index) => {
-      if(index === id){
-        task.title = editValue
-      }
+  const handleEdit = (editValue, task) => {
+    // const newTask = [...list]
+    // debugger
+    // newTask.forEach((task, index, newTask) => {
+    //   if(index === id){
+    //     task.title = editValue
+    //     console.log('==================  index  ==========================');
+    //     console.log('index ' + index + '    ----id ' + id);
+    //   }
+    // })
+    // debugger
+    // setList(newTask)
+    setList(prev => {
+      return[
+        ...prev.filter(curr => curr.id !== task.id),
+        {
+          id: task.id, 
+          title: editValue, 
+          completed: task.completed, 
+          sequence: task.sequence, 
+        }
+      ]
     })
-    setList(newTask)
   }
 
   
