@@ -3,16 +3,17 @@ import styles from '../../css/TodoCSS.css';
 // import {nanoid} from 'nanoid';
 import { useState, useEffect, useContext, memo, useCallback } from 'react';
   
-    function Todos({task, sequence, completed, editTodos , handleEdit, onDeleteTask, onChangeTask, onRestoreTask, onChangeCheck, onChangeTaskName}) {
+    function Todos({task, onHandleEdit, onDeleteTask, onChangeTask, onRestoreTask, onChangeCheck, onChangeTaskName}) {
     
         const [editValue, setEditValue] = useState(task.title);
         const [onEdit, setOnEdit] = useState(false);
         
-        const handleSave =(task) =>{
+        const onHandleSave =(task) =>{
           setOnEdit(false)
-          debugger
+          onHandleEdit(editValue, task)
           if(editValue) {
-            handleEdit(editValue, task)
+            onHandleEdit(editValue, task)
+            debugger
           } else {
             setEditValue(task.title)
           }
@@ -31,7 +32,7 @@ import { useState, useEffect, useContext, memo, useCallback } from 'react';
               {/* <input type ="text" value = {editValue} onChange ={e => setEditValue(e.target.value)}/>                  */}
            </div>
            <div>        
-              {task.completed && <button onClick={() => {handleSave(task)}} >Сохранить</button>}      
+              {task.completed && <button onClick={() => {onHandleSave(task)}} >Сохранить</button>}      
               {task.completed && <button onClick={() => onDeleteTask(task.id)}>Удалить</button>}               
               {!task.completed && <button onClick={() => onRestoreTask(task)}>Восстановить</button>}
            </div>
