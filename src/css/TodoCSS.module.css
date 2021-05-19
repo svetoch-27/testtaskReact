@@ -1,0 +1,172 @@
+.body{
+  width: 90%;
+}
+
+.classTodo{
+    border: 5px solid rgb(3, 255, 24);
+    /* display: flex; 
+    flex-direction: row;
+    align-items: center; */
+    /* justify-content: space-between; */
+    width: 90%;
+    /* height: 40px; */
+    border-radius: 10px;
+    /* max-width: 90%; */
+    padding: 5px;
+    margin: 5px;
+    cursor: grab;
+
+    /* text-align: center; */
+  }
+
+ input[type='text']{
+     border-radius: 30px;
+     border: 0px;
+}
+
+.out_input{
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.out_button{
+  width: 30%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.out_subtasks{
+  width: 50%;
+}
+
+.classTodo__checkbox{
+    border-radius: 30px;
+    border: 0px;
+  }
+
+
+.classTodo__checkbox{
+    border-radius: 30px;
+    border: 0px;
+  }
+
+.classTodo__button{
+  cursor: pointer;
+  border: none;
+  background: white;
+
+}
+
+.classTodo__button:hover{
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.center{
+  justify-content: center;  
+
+  border: 5px solid rgb(251, 255, 3);
+    display: flex; 
+    flex-direction: row;
+    align-items: center;
+    width: 150px;
+    /* height: 40px; */
+    border-radius: 10px;
+    /* max-width: 90%; */
+    padding: 5px;
+    margin: 5px;
+    cursor: grab;
+}
+  
+  .tasks{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    justify-content: space-between;  
+    padding: 1px 1px 1px 1px;
+    border-radius: 4px;
+    margin-bottom: 1px;
+    font-size: 12pt;
+  
+    width: 70%;
+    padding: 5px;
+    margin: 5px;
+  }
+
+.style_row{  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.style_column{  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+  .subtask{
+font-size: 12px;
+  }
+
+
+  .tasks:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  }
+  
+  .task__activ{
+    border: 5px solid blue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    justify-content: space-between;  
+    padding: 1px 1px 1px 1px;
+    border-radius: 4px;
+    margin-bottom: 1px;
+    font-size: 12pt;
+  
+    width: 70%;
+    padding: 5px;
+    margin: 5px;
+  }
+  
+  .task__completed{
+    border: 5px solid red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    justify-content: space-between;  
+    padding: 1px 1px 1px 1px;
+    border-radius: 4px;
+    margin-bottom: 1px;
+    font-size: 12pt;
+  
+    width: 70%;
+    padding: 5px;
+    margin: 5px;
+    
+  }
+  
+  .indent{
+    border: 1px solid rgb(11, 11, 12);
+    height: 1px;
+    background: dimgray;
+  
+    width: 450px;
+    padding: 5px;
+    margin: 5px;
+  }
+
+  .footer{
+    height: 100px;
+  }
+
+  
+  
+ 
+

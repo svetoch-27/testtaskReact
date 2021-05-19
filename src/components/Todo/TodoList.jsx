@@ -1,36 +1,44 @@
-import TodoItem from './TodoItem';
-import PropTypes from 'prop-types';
-// import styles from '../../css/TodoCSS.css';
 import {useState, useEffect, useCallback} from 'react';
 import Todos from './Todos';
-import axios from 'axios'
-// import styles from '../css/TodoCSS.css';
-import {nanoid} from 'nanoid';
-
+import axios from 'axios';
+import styles from '../../css/TodoCSS.module.css';
 
 function TodoList() {
-
-  // return <div className={styles.list}>{items.map(item => <TodoItem key={item.id} data={item}/>)}</div>;
-
   const apiURL = 'http://185.246.66.84:3000/sarhipenkova/tasks';
-
   const [list, setList] = useState([]);
   const [error, setError] = useState(''); 
-  // const [changeTask, setChangeTask] = useState({id: 1, title: 'NewTask', change: 'true'}); 
+  const apiURLSubTask = 'http://185.246.66.84:3000/sarhipenkova/subtasks';
 
+  // function addData() {
   useEffect(() => {
-    axios.get(apiURL).then(res => setList(res.data))
+    axios
+    .get(apiURL)
+    .then(async res => { 
+      const parList = res.data;
+      const myList = await Promise.all(
+        parList.map(async item => {
+          // const subTasks = await (await axios.get(apiURLSubTask+'?taskId='+item.id).data).data          
+          const subTasks =  (await axios.get(apiURLSubTask+'?taskId='+item.id)).data
+          return {
+              ...item,
+              subTasks,
+          }
+        })
+      )
+      setList(myList)
+    })
     .catch(err => setError(err))
-  },[]
-  )
+  },[] 
+  )  
 
-  const defaultTodos = list;
-  const tasksActiv = defaultTodos.filter(task => task.completed);
-  const tasksComplited = defaultTodos.filter(task => !task.completed);
+  // useEffect(() => {
+  //   axios.get(apiURLSubTask).then(res => setSubList(res.data))
+  //   .catch(err => setError(err))
+  // },[]
+  // )
 
-  // function onDeleteTask(id) {
-  //   setList(list.filter(item => item.id !== id));
-  // }
+  const tasksActiv = list.filter(task => task.completed);
+  const tasksComplited = list.filter(task => !task.completed);
 
   const onDeleteTask = useCallback((id) => {
     axios.delete(apiURL+'/'+id)  
@@ -39,13 +47,6 @@ function TodoList() {
       })
       .catch(err => setError(err));
     },[setList])
-
-  // function onRestoreTask(tasks) {
-  //       console.log('==================  onRestoreTask  ==========================');
-  //       console.log(tasks.id);
-  //           tasks.completed = !tasks.completed;
-  //           setList(prev => {return[ ...prev.filter(curr => curr.id !== tasks.id), tasks]});         
-  // }
 
   const onRestoreTask = useCallback((task) => {
     const newTask = {
@@ -60,13 +61,6 @@ function TodoList() {
       })
       .catch(err => setError(err));
     },[setList])
-  
-  // function onChangeCheck(tasks) {   
-  //       console.log('==================  onChangeCheck  ==========================');
-  //       console.log(tasks.id); 
-  //       tasks.completed = !tasks.completed;
-  //       setList(prev => {return[ ...prev.filter(curr => curr.id !== tasks.id), tasks]});
-  // }
 
   const onChangeCheck = useCallback((task) => {
     const newTask = {
@@ -81,38 +75,20 @@ function TodoList() {
       })
       .catch(err => setError(err));
     },[setList])
-   
-
-  // function addTodo() {
-  //   setList( prev =>
-  //     [...prev,
-  //       { id: nanoid(), title: 'Новая задача', completed: true, sequence:1, }
-  //     ]    );  }
-
-  function newSequenceTask() {
-    return 1;  
-  }
 
   const addTodo = useCallback(() => {
+
+    function newSequenceTask() {
+      return 10;
+    }
+
     const newTask = {title: 'Новая задача', completed: true, sequence: newSequenceTask(), }
+    
     axios.post(apiURL,newTask)  
       .then(response => {
         setList(prev => [...prev, response.data]);
       })
       .catch(err => setError(err));},[setList])
-
-    
-  // const editTodos = (editValue, id) =>{
-  //   // editTodos
-  //       const newTodos = [...list]
-  //       newTodos.forEach((todo) => {
-  //         if(todo.id === id)
-  //         todo.title = editValue
-  //         console.log(newTodos)
-  //       })
-  //       setList(newTodos)
-  // }
-
 
   const onHandleEdit = useCallback((editValue, task) => {
 
@@ -121,7 +97,6 @@ function TodoList() {
       title: editValue, 
       completed: task.completed, 
       sequence: task.sequence,}
-      debugger
     axios.put(apiURL+'/'+task.id,newTask)  
     
       .then(response => {
@@ -130,83 +105,45 @@ function TodoList() {
       
       .catch(err => setError(err));
     },[])
-
-
-  //   setList(prev => {
-  //     return[
-  //       ...prev.filter(curr => curr.id !== task.id),{}        
-  //     ]
-  //   })
-  // } 
-
-
-  // const onHandleEdit = (editValue, task) => {
-  //   setList(prev => {
-  //     return[
-  //       ...prev.filter(curr => curr.id !== task.id),
-  //       {
-  //         id: task.id, 
-  //         title: editValue, 
-  //         completed: task.completed, 
-  //         sequence: task.sequence, 
-  //       }
-  //     ]
-  //   })
-  // } 
-
+  
   return (    
-    <>
+    <> 
       <h1>Тестовое задание</h1>
       <h2>Активные задачи</h2>
-      <button onClick={addTodo}>Добавить задачу</button>
-
-      <div className='tasks task__activ'>
-        {tasksActiv.map((task) => (          
+      <div className={styles.center}>
+        <button className={styles.classTodo__button} onClick={addTodo}>Добавить задачу</button>
+      </div>
+      <div className={styles.tasks, styles.task__activ}>  
+        {tasksActiv.map((task) => (  
           <Todos
             task={task}
-            // editTodos={editTodos}
-
             onChangeCheck={onChangeCheck}            
             onDeleteTask={onDeleteTask}
             onHandleEdit={onHandleEdit}
             onRestoreTask={onRestoreTask}
-          />)
+          />
+          )
         )}
       </div>
 
-      <div className='indent'></div>
+      <div className={styles.indent}></div>
       
       <h2>Завершенные задачи</h2>
-      <div className='tasks task__completed'>
+      {/* <div className={styles.tasks, styles.task__completed}> */}
+      <div className={styles.task__completed}>
         
         {tasksComplited.map((task)=> (
           <Todos
             task={task}
-            // onChangeCheck={onChangeCheck}  
-            // onDeleteTask={onDeleteTask}
             onRestoreTask={onRestoreTask}
           />)
         )}
-      </div>      
+      </div>   
+      <div className={styles.footer}></div>   
     </>
   );
         }
 
-
-//  const TodoList = ({//items, onItemClick, onItemDoubleClick}) => {
-
-//   return (<div className={styles.list}>
-//       {items.map(item => (
-//         <TodoItem
-//           key={item.id}
-//           onClick={onItemClick}
-//           onDoubleClick={onItemDoubleClick}
-//           data={item}
-//         />)
-//       )}
-//     </div>
-//   );
-// };
 
 // TodoList.propTypes = {
 //   items: PropTypes.arrayOf(PropTypes.object),
