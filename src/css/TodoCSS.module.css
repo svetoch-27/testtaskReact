@@ -1,9 +1,5 @@
-.body{
-  width: 90%;
-}
-
 .classTodo{
-    border: 5px solid rgb(3, 255, 24);
+    border: 5px solid rgb(14, 223, 153);
     /* display: flex; 
     flex-direction: row;
     align-items: center; */
@@ -25,21 +21,26 @@
 }
 
 .out_input{
-  width: 60%;
+  width: 50%;
   display: flex;
   flex-direction: row;
   align-items: center;
+
 }
 
 .out_button{
-  width: 30%;
+  width: 50%;
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: flex-end;
+
 }
 
 .out_subtasks{
-  width: 50%;
+  width: 70%;
+  border: 5px solid rgb(128, 253, 96);  
+  border-radius: 10px;
 }
 
 .classTodo__checkbox{
@@ -56,8 +57,7 @@
 .classTodo__button{
   cursor: pointer;
   border: none;
-  background: white;
-
+  background: white;  
 }
 
 .classTodo__button:hover{
@@ -100,7 +100,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between;  
 }
 
 .style_column{  
@@ -108,9 +108,10 @@
   flex-direction: column;
   align-items: center;
 }
-  .subtask{
-font-size: 12px;
-  }
+
+.subtask{
+  font-size: 12px;
+}
 
 
   .tasks:hover{
