@@ -38,7 +38,7 @@
 }
 
 .out_subtasks{
-  width: 70%;
+  /* width: 90%; */
   border: 5px solid rgb(128, 253, 96);  
   border-radius: 10px;
 }
@@ -63,6 +63,7 @@
 .classTodo__button:hover{
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
+
 
 .center{
   justify-content: center;  
@@ -167,6 +168,14 @@
     height: 100px;
   }
 
+
+  .sub_tasks{
+    /* width: 450px; */
+    /* border: 5px solid rgb(14, 209, 118); */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
   
   
  
